@@ -1,0 +1,22 @@
+p
+div class="panel panel-success"
+  div class="panel-heading" Chapter List
+  div class="panel-body"
+    table class="table table-striped table-hover"
+      thead
+        tr
+          th Folder ID
+          th Chapter Order
+          th Chapter Name
+          th Folder Type
+      tbody
+        - @new_folder.each do |chapter|
+          tr
+            td 
+              == chapter[:folder_id]
+            td
+              == chapter[:chapter_order]
+            td
+              a href="#" #{chapter[:name]}
+            td
+              == chapter[:folder_type]

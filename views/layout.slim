@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    meta charset="utf-8" 
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    meta name="description" content="simple service"
+    meta name="author" content="yiwei_huang"
+    title Keyword Cloud
+    link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
+    link href="/style.css" rel="stylesheet"
+
+  body
+    == slim :nav
+    div class='container' id='html_body'
+      section
+        == slim :flash_bar
+        == yield
+    script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"
+    script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"
