@@ -14,9 +14,6 @@ h2
           - @folder[:files].each do |f|
             tr
               td #{f[:filename]}
-              / td
-              /   a href="/accounts/#{@current_account['username']}/folders/#{@folder['id']}/files/#{f['id']}" 
-              /     i.fa.fa-download aria-hidden="true"  Download
         - else
             p
              | Please add files.
