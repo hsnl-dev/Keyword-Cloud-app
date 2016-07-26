@@ -1,13 +1,13 @@
-div class="row"
-  div class="col-sm-1"
-  div class="col-sm-4"
-    h3 class="text-center" Login
-    form method='post' action='/login' id='form-login'
-      div class="form-group"
+.row
+  .col-sm-1
+  .col-sm-4
+    h3.text-center Login
+    form#form-login method='post' action='/login'
+      .form-group
         label for='input-account' Account
-        input type='text' name='account' id='input-account' class="form-control"
-      div class="form-group"
+        input#input-account.form-control type='text' name='account'
+      .form-group
         label for='input-password' Password
-        input type='password' name='password' id='input-password' class="form-control"
+        input#input-password.form-control type='password' name='password'
       
-      button type='submit' id='button-login' value='login' class="btn btn-primary btn-block" Sign in
+      button#button-login.btn.btn-primary.btn-block type='submit' value='login' Sign in
