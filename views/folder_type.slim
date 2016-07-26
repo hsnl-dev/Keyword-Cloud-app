@@ -1,30 +1,32 @@
 p
-div class="panel panel-success"
-  div class="panel-heading" Folder Type
-  div class="panel-body"
-    table class="table table-striped table-hover"
+
+.panel.panel-primary
+  .panel-heading Folder Type
+  .panel-body
+    table.table.table-striped.table-hover
       thead
         tr
           th Type
+          th Create Folder
       tbody
         tr
           td 
             a href="/accounts/#{@current_uid}/#{@cid}/concepts" Concept  (課程概念)
           td
-            form method='post' action='/accounts/#{@current_uid}/#{@cid}/concepts' id='form-create-concepts'
-              button.btn.btn-default.btn type='submit' id='button-create-concepts' class="btn btn-primary"
-                i.fa.fa-plus aria-hidden="true"  Create
+            form#form-create-concepts method='post' action='/accounts/#{@current_uid}/#{@cid}/concepts'
+              button#button-create-concepts.btn.btn-danger type='submit'
+                i.fa.fa-plus aria-hidden="true"  Create Folder
         tr
           td 
             a href="/accounts/#{@current_uid}/#{@cid}/slides" Slide  (課程講義)
           td
-            form method='post' action='/accounts/#{@current_uid}/#{@cid}/slides' id='form-create-slides'
-              button.btn.btn-default.btn type='submit' id='button-create-slides' class="btn btn-primary"
-                i.fa.fa-plus aria-hidden="true"  Create
+            form#form-create-slides method='post' action='/accounts/#{@current_uid}/#{@cid}/slides'
+              button#button-create-slides.btn.btn-danger type='submit'
+                i.fa.fa-plus aria-hidden="true"  Create Folder
         tr
           td 
             a href="/accounts/#{@current_uid}/#{@cid}/subtitles" Subtitle  (課程字幕)
           td
-            form method='post' action='/accounts/#{@current_uid}/#{@cid}/subtitles' id='form-create-subtitles'
-              button.btn.btn-default.btn type='submit' id='button-create-subtitles' class="btn btn-primary"
-                i.fa.fa-plus aria-hidden="true"  Create
+            form#form-create-subtitles method='post' action='/accounts/#{@current_uid}/#{@cid}/subtitles'
+              button#button-create-subtitles.btn.btn-danger type='submit'
+                i.fa.fa-plus aria-hidden="true"  Create Folder
