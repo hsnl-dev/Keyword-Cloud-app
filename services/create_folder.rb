@@ -5,6 +5,6 @@ class CreateFolder
     response = HTTP.auth("Bearer #{auth_token}")
                    .post("#{ENV['API_HOST']}/accounts/#{uid}/#{cid}/#{folder_type}/",
                          json: {folder_url: folder_url})
-    response.code == 201 ? JSON.parse(response) : nil
+    response.code == 201 ? response.parse : nil
   end
 end
