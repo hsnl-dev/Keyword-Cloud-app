@@ -10,7 +10,7 @@ class KeywordCloudApp < Sinatra::Base
     credentials = LoginCredentials.call(params)
 
     if credentials.failure?
-      flash[:error] = 'Account or Password incorrec'
+      flash[:error] = '輸入的帳號密碼不正確。'
       redirect '/login'
       halt
     end
@@ -20,7 +20,7 @@ class KeywordCloudApp < Sinatra::Base
       @current_uid = auth_account['uid']
       session[:auth_token] = auth_account['auth_token']
       session[:current_uid] = SecureMessage.encrypt(@current_uid)
-      flash[:notice] = "Welcome back"
+      flash[:notice] = "歡迎使用本網站"
       redirect '/'
     else
       flash[:error] = 'Your username or password did not match our records'
@@ -31,7 +31,7 @@ class KeywordCloudApp < Sinatra::Base
   get '/logout/?' do
     @current_uid = nil
     session.clear
-    flash[:notice] = 'You have logged out - please login again to use this site'
+    flash[:notice] = '您已登出 - 請重新登入使用本網站'
     redirect :login
   end
 

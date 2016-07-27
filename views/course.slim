@@ -1,17 +1,15 @@
-p
+h2
+  == "我的課程"
 
 .panel.panel-primary
-  .panel-heading Course List
-  .panel-body
-    table.table.table-striped.table-hover
-      thead
-        tr
-          th Course ID
-          th Course Name
-      tbody
-        - @owned.each do |course|
+    .panel-heading 課程列表
+    .panel-body
+      table.table.table-striped.table-hover
+        thead
           tr
-            td 
-              == course[:cid]
-            td
-              a href="/accounts/#{@current_uid}/#{course[:cid]}" #{course[:coures_name]}
+            th 課程名稱
+        tbody
+          - @owned.each do |course|
+            tr
+              td
+                a href="/accounts/#{@current_uid}/#{course[:cid]}" #{course[:coures_name]}
