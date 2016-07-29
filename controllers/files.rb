@@ -16,7 +16,7 @@ class KeywordCloudApp < Sinatra::Base
           filename: params['fileToUpload'][:filename],
           document: params['fileToUpload'][:tempfile].read)
 
-        flash[:notice] = 'Here is your new file!'
+        flash[:notice] = '這是您的新文件！'
         redirect folder_url
       rescue => e
         flash[:error] = 'Something went wrong -- we will look into it!'
