@@ -1,20 +1,17 @@
 p
 
 .panel.panel-primary
-  .panel-heading Chapter List
+  .panel-heading 章節列表
   .panel-body
     table.table.table-striped.table-hover
       thead
         tr
-          th Folder ID
-          th Chapter Order
-          th Chapter Name
-          th Folder Type
+          th 章節順序
+          th 章節名稱
+          th 資料夾類型
       tbody
         - @new_folder.each do |chapter|
           tr
-            td 
-              == chapter[:folder_id]
             td
               == chapter[:chapter_order]
             td

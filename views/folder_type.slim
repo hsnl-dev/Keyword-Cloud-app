@@ -2,32 +2,32 @@ h2
   == "#{@course['data']}"
 
 .panel.panel-primary
-  .panel-heading Folder Type
+  .panel-heading 資料夾類型
   .panel-body
     table.table.table-striped.table-hover
       thead
         tr
-          th Type
-          th Create Folder
+          th 類型
+          th 建立資料夾
       tbody
         tr
           td 
-            a href="/accounts/#{@current_uid}/#{@cid}/concepts" Concept  (課程概念)
+            a href="/accounts/#{@current_uid}/#{@cid}/concepts" 關鍵字
           td
             form#form-create-concepts method='post' action='/accounts/#{@current_uid}/#{@cid}/concepts'
               button#button-create-concepts.btn.btn-danger type='submit'
-                i.fa.fa-plus aria-hidden="true"  Create Folder
+                i.fa.fa-plus aria-hidden="true"  建立資料夾
         tr
           td 
-            a href="/accounts/#{@current_uid}/#{@cid}/slides" Slide  (課程講義)
+            a href="/accounts/#{@current_uid}/#{@cid}/slides" 課程講義
           td
             form#form-create-slides method='post' action='/accounts/#{@current_uid}/#{@cid}/slides'
               button#button-create-slides.btn.btn-danger type='submit'
-                i.fa.fa-plus aria-hidden="true"  Create Folder
+                i.fa.fa-plus aria-hidden="true"  建立資料夾
         tr
           td 
-            a href="/accounts/#{@current_uid}/#{@cid}/subtitles" Subtitle  (課程字幕)
+            a href="/accounts/#{@current_uid}/#{@cid}/subtitles" 課程字幕
           td
             form#form-create-subtitles method='post' action='/accounts/#{@current_uid}/#{@cid}/subtitles'
               button#button-create-subtitles.btn.btn-danger type='submit'
-                i.fa.fa-plus aria-hidden="true"  Create Folder
+                i.fa.fa-plus aria-hidden="true"  建立資料夾

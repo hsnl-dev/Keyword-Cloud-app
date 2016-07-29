@@ -16,10 +16,10 @@ class KeywordCloudApp < Sinatra::Base
                                      folder_type: folder_type)
 
       if new_folder
-        flash[:notice] = "The folder was successfully created!"
+        flash[:notice] = "該資料夾成功建立！"
         redirect "/accounts/#{@current_uid}/#{params[:course_id]}/#{new_folder.first['attributes']['folder_type']}"
       else
-        flash[:error] = 'Failed to create folder!'
+        flash[:error] = '無法建立資料夾！'
         redirect "/accounts/#{@current_uid}"
       end
     end
@@ -47,7 +47,7 @@ class KeywordCloudApp < Sinatra::Base
       if @folder
         slim(:folder)
       else
-        flash[:error] = 'We cannot find this folder in your account'
+        flash[:error] = '在您的帳號中，我們無法找到資料夾'
         redirect "/accounts/#{params[:uid]}/#{params[:course_id]}/#{params[:folder_type]}"
       end
     else
