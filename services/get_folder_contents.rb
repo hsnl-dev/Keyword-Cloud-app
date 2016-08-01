@@ -21,6 +21,7 @@ class GetFolderContents
       course_id: content['course_id'],
       folder_name: content['folder_name'],
       folder_id: content['folder_id'],
+      folder_type: content['folder_type'],
       files: c
     }
   end

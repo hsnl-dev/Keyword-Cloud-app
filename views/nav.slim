@@ -15,6 +15,12 @@
           - if @current_uid
             li
               a href="/accounts/#{@current_uid}" 我的課程
+            - if @folder
+              li 
+                a href="/accounts/#{@current_uid}/#{@course_id}" 課程資料夾
+              - if @folder_id
+                li 
+                  a href="/accounts/#{@current_uid}/#{@course_id}/#{@folder[:folder_type]}" 章節資料夾
         ul.nav.navbar-nav.navbar-right
           - if @current_uid
             li
