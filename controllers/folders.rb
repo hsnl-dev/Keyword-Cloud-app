@@ -27,10 +27,12 @@ class KeywordCloudApp < Sinatra::Base
 
   get '/accounts/:uid/:course_id/:folder_type' do
     if @current_uid && @current_uid.to_s == params[:uid]
-      @new_folder = GetOwnedFolder.call(current_uid: @current_uid,
+      @course_id = params[:course_id]
+      @folder_type = params[:folder_type]
+      @folder = GetOwnedFolder.call(current_uid: @current_uid,
                                         auth_token: session[:auth_token],
-                                        course_id: params[:course_id],
-                                        folder_type: params[:folder_type])
+                                        course_id: @course_id,
+                                        folder_type: @folder_type)
 
       slim(:chapter_folder)
     else
@@ -40,10 +42,12 @@ class KeywordCloudApp < Sinatra::Base
 
   get '/accounts/:uid/:course_id/folders/:folder_id' do
     if @current_uid && @current_uid.to_s == params[:uid]
+      @course_id = params[:course_id]
+      @folder_id = params[:folder_id]
       @folder = GetFolderContents.call(current_uid: @current_uid,
                                        auth_token: session[:auth_token],
-                                       course_id: params[:course_id],
-                                       folder_id: params[:folder_id])
+                                       course_id: @course_id,
+                                       folder_id: @folder_id)
       if @folder
         slim(:folder)
       else
