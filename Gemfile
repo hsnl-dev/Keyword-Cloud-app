@@ -13,6 +13,7 @@ gem 'pony'
 gem 'rack-flash3'
 gem 'rack-ssl-enforcer'
 gem 'secure_headers'
+gem 'pdf-reader'
 
 group :development do
   gem 'rerun'
