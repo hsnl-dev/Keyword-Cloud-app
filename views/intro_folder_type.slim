@@ -1,0 +1,31 @@
+h2
+  == "測試課程"
+
+.panel.panel-primary
+  .panel-heading 資料夾類型
+  .panel-body
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th data-step="1" data-intro="本課程相關文檔" 類型
+          th data-step="2" data-intro="在初次進入本課程前須先創建章節資料夾" 建立資料夾
+      tbody
+        tr
+          td 
+            a href="/#" 關鍵字
+          td
+            a.btn.btn-danger href="/#"  建立資料夾
+        tr
+          td 
+            a href="/#" 課程講義
+          td
+            a.btn.btn-danger href="/#"  建立資料夾
+        tr
+          td
+            a href="/#" 課程字幕
+          td
+            a.btn.btn-danger href="/#"  建立資料夾
+        
+button.btn.btn-info.btn-lg type="button" href="javascript:void(0);" onclick="javascript:introJs().setOption('tooltipClass', 'customDefault').start();"
+  span.glyphicon.glyphicon-sunglasses aria-hidden="true" 
+  | 如何使用
