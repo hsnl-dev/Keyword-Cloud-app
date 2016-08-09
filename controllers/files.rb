@@ -14,7 +14,7 @@ class KeywordCloudApp < Sinatra::Base
           course_id: params[:course_id],
           folder_id: params[:folder_id],
           filename: params['fileToUpload'][:filename],
-          document: params['fileToUpload'][:tempfile].read)
+          document: params['fileToUpload'][:tempfile])
 
         flash[:notice] = '這是您的新文件！'
         redirect folder_url
