@@ -1,0 +1,59 @@
+/! Image Background Page Header
+/! Note: The background image is set within the business-casual.css file.
+header.business-header
+  .container
+    .row
+      .col-lg-12
+        h1.tagline 關鍵字雲編輯器(介紹)
+
+/! Page Content
+.container
+  hr/
+  .row
+    .col-sm-8
+      h2 What We Do
+      p.lead 結合課程相關文件，以及學生在課程觀看影片的相關資訊
+      p.lead 產生學生在課程遇到到相關問題
+      p
+      .col-sm-5
+        a#startButton.btn.btn-info.btn-lg.btn-block href="javascript:void(0);"  網站介紹
+    .col-sm-4
+      h2 ShareCourse
+      #fb-root
+        javascript:
+          (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7&appId=197009657332993";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+      .fb-page data-adapt-container-width="true" data-hide-cover="false" data-href="https://www.facebook.com/ShareCourse/" data-show-facepile="true" data-small-header="false" 
+        blockquote.fb-xfbml-parse-ignore cite="https://www.facebook.com/ShareCourse/" 
+          a href="https://www.facebook.com/ShareCourse/"  ShareCourse
+
+      
+  /! /.row
+  hr/
+  .row
+    .col-sm-4
+      img.img-rounded.img-responsive.img-center alt="" src="/img/upload.png" /
+      h2 上傳課程文件
+      p 上傳課程的講義、影片字幕、以及關鍵字
+    .col-sm-4
+      img.img-rounded.img-responsive.img-center alt="" src="/img/cloud.png" /
+      h2 產生關鍵字雲
+      p 關鍵字雲為該單元同學常遇到的困難點，關鍵字越大, 表示越多人對此關鍵字所代表的觀念有問題(或是越重要)
+    .col-sm-4
+      img.img-rounded.img-responsive.img-center alt="" src="/img/tag.png" /
+      h2 選擇關鍵字
+      p 可以挑選
+  /! /.row
+  hr/
+  /! Footer
+  footer
+    .row
+      .col-lg-12
+        p Copyright &copy; Your Website 2016
+    /! /.row
+/! /.container
