@@ -23,7 +23,7 @@ class KeywordCloudApp < Sinatra::Base
       flash[:notice] = "歡迎使用本網站"
       redirect '/'
     else
-      flash[:error] = 'Your username or password did not match our records'
+      flash[:error] = '輸入的帳號密碼不正確。'
       redirect :login
     end
   end
