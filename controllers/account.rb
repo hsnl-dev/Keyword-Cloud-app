@@ -37,6 +37,7 @@ class KeywordCloudApp < Sinatra::Base
 
   get '/accounts/:uid' do
     if @current_uid && @current_uid.to_s == params[:uid]
+      puts @current_uid
       @auth_token = session[:auth_token]
       @owned = GetOwnedCourses.call(current_uid: @current_uid,
                                     auth_token: @auth_token)
