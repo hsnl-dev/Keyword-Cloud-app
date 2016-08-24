@@ -4,7 +4,6 @@ ruby '2.3.1'
 gem 'sinatra'
 gem 'thin'
 gem 'slim'
-
 gem 'http'
 gem 'rbnacl-libsodium'
 gem 'jose'

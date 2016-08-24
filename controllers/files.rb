@@ -14,6 +14,7 @@ class KeywordCloudApp < Sinatra::Base
           course_id: params[:course_id],
           folder_id: params[:folder_id],
           filename: params['fileToUpload'][:filename],
+          description: params['fileToUpload'][:type],
           document: params['fileToUpload'][:tempfile])
 
         flash[:notice] = '這是您的新文件！'
