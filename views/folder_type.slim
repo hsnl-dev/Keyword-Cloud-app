@@ -9,6 +9,7 @@ h2
         tr
           th 類型
           th 建立資料夾
+          th 創建文字雲
       tbody
         tr
           td 
@@ -17,6 +18,8 @@ h2
             form#form-create-concepts method='post' action='/accounts/#{@current_uid}/#{@cid}/concepts'
               button#button-create-concepts.btn.btn-danger type='submit'
                 i.fa.fa-plus aria-hidden="true"  建立資料夾
+          td
+            a.btn.btn-danger href="#" role="button" onclick="myFunction()"  創建文字雲
         tr
           td 
             a href="/accounts/#{@current_uid}/#{@cid}/slides" 課程講義
@@ -24,6 +27,8 @@ h2
             form#form-create-slides method='post' action='/accounts/#{@current_uid}/#{@cid}/slides'
               button#button-create-slides.btn.btn-danger type='submit'
                 i.fa.fa-plus aria-hidden="true"  建立資料夾
+          td
+            a.btn.btn-danger href="/accounts/#{@current_uid}/#{@cid}/folders/slides/segment" role="button" onclick="myFunction()" 創建文字雲
         tr
           td 
             a href="/accounts/#{@current_uid}/#{@cid}/subtitles" 課程字幕
@@ -31,3 +36,7 @@ h2
             form#form-create-subtitles method='post' action='/accounts/#{@current_uid}/#{@cid}/subtitles'
               button#button-create-subtitles.btn.btn-danger type='submit'
                 i.fa.fa-plus aria-hidden="true"  建立資料夾
+          td
+            a.btn.btn-danger href="#" role="button" onclick="myFunction()" 創建文字雲
+            
+    a.btn.btn-success.btn-lg.btn-block href="#" role="button" 顯示文字雲
