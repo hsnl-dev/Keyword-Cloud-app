@@ -9,34 +9,52 @@ h2
         tr
           th 類型
           th 建立資料夾
-          th 創建文字雲
+          /th 創建文字雲
       tbody
         tr
-          td 
+          td
             a href="/accounts/#{@current_uid}/#{@cid}/concepts" 關鍵字
           td
-            form#form-create-concepts method='post' action='/accounts/#{@current_uid}/#{@cid}/concepts'
-              button#button-create-concepts.btn.btn-danger type='submit'
-                i.fa.fa-plus aria-hidden="true"  建立資料夾
-          td
-            a.btn.btn-danger href="#" role="button" onclick="myFunction()"  創建文字雲
+            - if @concepts
+              form#form-create-concepts method='get' action='/accounts/#{@current_uid}/#{@cid}/concepts'
+                button#button-create-concepts.btn.btn-success type='submit'
+                  i.fa.fa-plus aria-hidden="true"  資料夾
+            -else
+              form#form-create-concepts method='post' action='/accounts/#{@current_uid}/#{@cid}/concepts'
+                button#button-create-concepts.btn.btn-danger type='submit'
+                  i.fa.fa-plus aria-hidden="true"  建立資料夾
+          /td
+            /a.btn.btn-danger href="#" role="button" onclick="myFunction()"  顯示文字雲
         tr
-          td 
+          td
             a href="/accounts/#{@current_uid}/#{@cid}/slides" 課程講義
           td
-            form#form-create-slides method='post' action='/accounts/#{@current_uid}/#{@cid}/slides'
-              button#button-create-slides.btn.btn-danger type='submit'
-                i.fa.fa-plus aria-hidden="true"  建立資料夾
-          td
-            a.btn.btn-danger href="/accounts/#{@current_uid}/#{@cid}/folders/slides/segment" role="button" onclick="myFunction()" 創建文字雲
+            - if @slides
+              form#form-create-slides method='get' action='/accounts/#{@current_uid}/#{@cid}/slides'
+                button#button-create-slides.btn.btn-success type='submit'
+                  i.fa.fa-plus aria-hidden="true"  資料夾
+            -else
+              form#form-create-slides method='post' action='/accounts/#{@current_uid}/#{@cid}/slides'
+                button#button-create-slides.btn.btn-danger type='submit'
+                  i.fa.fa-plus aria-hidden="true"  建立資料夾
+          /td
+            /a.btn.btn-danger href="/accounts/#{@current_uid}/#{@cid}/folders/slides/segment" role="button" onclick="myFunction()" 顯示文字雲
         tr
-          td 
+          td
             a href="/accounts/#{@current_uid}/#{@cid}/subtitles" 課程字幕
           td
-            form#form-create-subtitles method='post' action='/accounts/#{@current_uid}/#{@cid}/subtitles'
-              button#button-create-subtitles.btn.btn-danger type='submit'
-                i.fa.fa-plus aria-hidden="true"  建立資料夾
-          td
-            a.btn.btn-danger href="#" role="button" onclick="myFunction()" 創建文字雲
-            
-    a.btn.btn-success.btn-lg.btn-block href="#" role="button" 顯示文字雲
+            -if @subtitles
+              form#form-create-subtitles method='get' action='/accounts/#{@current_uid}/#{@cid}/subtitles'
+                button#button-create-subtitles.btn.btn-success type='submit'
+                  i.fa.fa-plus aria-hidden="true"  資料夾
+            -else
+              form#form-create-subtitles method='post' action='/accounts/#{@current_uid}/#{@cid}/subtitles'
+                button#button-create-subtitles.btn.btn-danger type='submit'
+                  i.fa.fa-plus aria-hidden="true"  建立資料夾
+          /td
+            /a.btn.btn-danger href="#" role="button" onclick="myFunction()" 顯示文字雲
+
+form#form-create-subtitles method='post' action='/accounts/showKeywords/#{@current_uid}/#{@cid}/'
+  button#button-create-subtitles.btn.btn-success.btn-lg.btn-block type='submit'
+    i.fa.fa-plus aria-hidden="true"  顯示文字雲
+    /!a.btn.btn-success.btn-lg.btn-block href="#" role="button" 顯示文字雲
