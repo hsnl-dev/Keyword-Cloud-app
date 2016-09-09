@@ -15,7 +15,22 @@ class KeywordCloudApp < Sinatra::Base
                                      folder_url: nil,
                                      folder_type: folder_type)
 
+
+      # print(session[:folder])
       if new_folder
+        if folder_type == 'concepts'
+          session[:concepts] = 1
+          # @concepts = session[:concepts]
+        elsif folder_type == 'slides'
+          session[:slides] = 1
+          # @slides = session[:concepts]
+        elsif folder_type == 'subtitles'
+          session[:subtitles] = 1
+          # @subtitles = session[:concepts]
+        end
+
+        session[:folder] = params[:folder_type]
+        @created = session[:folder]
         flash[:notice] = "該資料夾成功建立！"
         redirect "/accounts/#{@current_uid}/#{params[:course_id]}/#{new_folder.first['attributes']['folder_type']}"
       else
@@ -39,17 +54,49 @@ class KeywordCloudApp < Sinatra::Base
       slim(:home)
     end
   end
+  #顯示文字雲，點擊後，有幾個章節就有幾個文字雲按鈕
+  post '/accounts/showKeywords/:uid/:course_id/' do
+    if @current_uid && @current_uid.to_s == params[:uid]
+      @course_id = params[:course_id]
+      #@folder_type = params[:folder_type]
+      @folder = GetOwnedFolder.call(current_uid: @current_uid,
+                                        auth_token: session[:auth_token],
+                                        course_id: @course_id,
+                                        folder_type: "subtitles")
+      @folder_count = @folder.count;
+      @course = GetCourseContents.call(current_uid: @current_uid,
+                                      auth_token: session[:auth_token],
+                                      course_id: params[:course_id])
+      # print(@course)
+      # print(@folder_count)
+      # flash[:notice] = @folder_count
+      # print("================\n")
+      slim(:show_keywords)
 
-  get '/accounts/:uid/:course_id/folders/:folder_id' do
+    else
+      slim(:home)
+    end
+  end
+  get '/accounts/:uid/:course_id/folders/:folder_type/:folder_id' do
     if @current_uid && @current_uid.to_s == params[:uid]
       @course_id = params[:course_id]
       @folder_id = params[:folder_id]
+      @folder_type = params[:folder_type]
       @folder = GetFolderContents.call(current_uid: @current_uid,
                                        auth_token: session[:auth_token],
                                        course_id: @course_id,
                                        folder_id: @folder_id)
-      if @folder
-        slim(:folder)
+      if @folder && @folder_type =="slides"
+        slim(:slide_folder)
+      elsif @folder && @folder_type =="concepts"
+        slim(:concept_folder)
+      elsif @folder && @folder_type =="subtitles"
+        @video_name = GetVideoContents.call(current_uid: @current_uid,
+                                         auth_token: session[:auth_token],
+                                         course_id: @course_id,
+                                         folder_id: @folder_id)
+        #flash[:error] = @video_name.to_json
+        slim(:subtitle_folder)
       else
         flash[:error] = '在您的帳號中，我們無法找到資料夾'
         redirect "/accounts/#{params[:uid]}/#{params[:course_id]}/#{params[:folder_type]}"
