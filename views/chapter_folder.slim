@@ -10,11 +10,11 @@ p
           th 章節名稱
           th 資料夾類型
       tbody
-        - @folder.each do |chapter|
+        - @ordered_folder.each do |chapter|
           tr
             td
               == chapter[:chapter_order]
             td
-              a href="/accounts/#{@current_uid}/#{chapter[:course_id]}/folders/#{chapter[:folder_type]}/#{chapter[:folder_id]}" #{chapter[:name]}
+              a href="/accounts/#{@current_uid}/#{chapter[:course_id]}/#{chapter[:folder_type]}/#{chapter[:folder_id]}" #{chapter[:name]}
             td
               == chapter[:folder_type]

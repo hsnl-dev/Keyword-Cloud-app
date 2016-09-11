@@ -19,8 +19,7 @@ h2
             td
               == "#{chapter[:name]}"
             td
-                button#button-create-concepts.btn.btn-success type='submit'
-                  i.fa.fa-plus aria-hidden="true"  製作文字雲
+                a.btn.btn-danger href="/accounts/#{@current_uid}/#{@cid}/chapter/makekeyword" role="button" onclick="myFunction()" 製作文字雲
             td
                 button#button-create-concepts.btn.btn-success type='submit'
                   i.fa.fa-plus aria-hidden="true"  顯示文字雲
