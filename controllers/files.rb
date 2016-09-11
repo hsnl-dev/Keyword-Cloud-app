@@ -2,11 +2,12 @@ require 'sinatra'
 
 # Click course and show three folders(concept,subtitle,slide)
 class KeywordCloudApp < Sinatra::Base
-  post '/accounts/:uid/:course_id/folders/:folder_id/files/' do
+  post '/accounts/:uid/:course_id/:folder_type/:folder_id/files/' do
     if @current_uid && @current_uid.to_s == params[:uid]
       @auth_token = session[:auth_token]
-      cid = params[:course_id]
-      folder_url = "/accounts/#{@current_uid}/#{cid}/folders/#{params[:folder_id]}"
+      @cid = params[:course_id]
+      @folder_type = params[:folder_type]
+      folder_url = "/accounts/#{@current_uid}/#{@cid}/#{@folder_type}/#{params[:folder_id]}"
       begin
         new_file = CreateFile.call(
           current_uid: @current_uid,
@@ -27,8 +28,10 @@ class KeywordCloudApp < Sinatra::Base
     end
   end
 
-  get '/accounts/:uid/:course_id/folders/:folder_id/files/' do
-    folder_url = "/accounts/#{@current_uid}/#{cid}/folders/#{params[:folder_id]}"
+  get '/accounts/:uid/:course_id/:folder_type/:folder_id/files/' do
+    @cid = params[:course_id]
+    @folder_type = params[:folder_type]
+    folder_url = "/accounts/#{@current_uid}/#{@cid}/#{@folder_type}/#{params[:folder_id]}"
     redirect folder_url
   end
 

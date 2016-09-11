@@ -25,8 +25,6 @@ class KeywordCloudApp < Sinatra::Base
           session[:subtitles] = 1
         end
 
-        session[:folder] = params[:folder_type]
-        @created = session[:folder]
         flash[:notice] = "該資料夾成功建立！"
         redirect "/accounts/#{@current_uid}/#{params[:course_id]}/#{new_folder.first['attributes']['folder_type']}"
       else
@@ -44,6 +42,7 @@ class KeywordCloudApp < Sinatra::Base
                                     auth_token: session[:auth_token],
                                     course_id: @course_id,
                                     folder_type: @folder_type)
+      @ordered_folder = @folder.sort_by { |chapter| chapter[:chapter_order] }
 
       slim(:chapter_folder)
     else
@@ -51,7 +50,7 @@ class KeywordCloudApp < Sinatra::Base
     end
   end
 
-  get '/accounts/:uid/:course_id/folders/:folder_type/:folder_id' do
+  get '/accounts/:uid/:course_id/:folder_type/:folder_id' do
     if @current_uid && @current_uid.to_s == params[:uid]
       @course_id = params[:course_id]
       @folder_id = params[:folder_id]
@@ -66,9 +65,9 @@ class KeywordCloudApp < Sinatra::Base
         slim(:concept_folder)
       elsif @folder && @folder_type =="subtitles"
         @video_name = GetVideoContents.call(current_uid: @current_uid,
-                                         auth_token: session[:auth_token],
-                                         course_id: @course_id,
-                                         folder_id: @folder_id)
+                                            auth_token: session[:auth_token],
+                                            course_id: @course_id,
+                                            folder_id: @folder_id)
         slim(:subtitle_folder)
       else
         flash[:error] = '在您的帳號中，我們無法找到資料夾'
