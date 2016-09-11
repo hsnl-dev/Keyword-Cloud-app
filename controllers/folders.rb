@@ -16,17 +16,13 @@ class KeywordCloudApp < Sinatra::Base
                                      folder_type: folder_type)
 
 
-      # print(session[:folder])
       if new_folder
         if folder_type == 'concepts'
           session[:concepts] = 1
-          # @concepts = session[:concepts]
         elsif folder_type == 'slides'
           session[:slides] = 1
-          # @slides = session[:concepts]
         elsif folder_type == 'subtitles'
           session[:subtitles] = 1
-          # @subtitles = session[:concepts]
         end
 
         session[:folder] = params[:folder_type]
@@ -73,7 +69,6 @@ class KeywordCloudApp < Sinatra::Base
                                          auth_token: session[:auth_token],
                                          course_id: @course_id,
                                          folder_id: @folder_id)
-        #flash[:error] = @video_name.to_json
         slim(:subtitle_folder)
       else
         flash[:error] = '在您的帳號中，我們無法找到資料夾'
