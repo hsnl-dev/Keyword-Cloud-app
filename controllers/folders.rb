@@ -45,38 +45,16 @@ class KeywordCloudApp < Sinatra::Base
       @course_id = params[:course_id]
       @folder_type = params[:folder_type]
       @folder = GetOwnedFolder.call(current_uid: @current_uid,
-                                        auth_token: session[:auth_token],
-                                        course_id: @course_id,
-                                        folder_type: @folder_type)
+                                    auth_token: session[:auth_token],
+                                    course_id: @course_id,
+                                    folder_type: @folder_type)
 
       slim(:chapter_folder)
     else
       slim(:home)
     end
   end
-  #顯示文字雲，點擊後，有幾個章節就有幾個文字雲按鈕
-  post '/accounts/showKeywords/:uid/:course_id/' do
-    if @current_uid && @current_uid.to_s == params[:uid]
-      @course_id = params[:course_id]
-      #@folder_type = params[:folder_type]
-      @folder = GetOwnedFolder.call(current_uid: @current_uid,
-                                        auth_token: session[:auth_token],
-                                        course_id: @course_id,
-                                        folder_type: "subtitles")
-      @folder_count = @folder.count;
-      @course = GetCourseContents.call(current_uid: @current_uid,
-                                      auth_token: session[:auth_token],
-                                      course_id: params[:course_id])
-      # print(@course)
-      # print(@folder_count)
-      # flash[:notice] = @folder_count
-      # print("================\n")
-      slim(:show_keywords)
 
-    else
-      slim(:home)
-    end
-  end
   get '/accounts/:uid/:course_id/folders/:folder_type/:folder_id' do
     if @current_uid && @current_uid.to_s == params[:uid]
       @course_id = params[:course_id]

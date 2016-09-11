@@ -10,15 +10,17 @@ h2
           th 章節順序
           th 章節名稱
           th
+          th
       tbody
         - @folder.each do |chapter|
           tr
             td
               == chapter[:chapter_order]
             td
-              a onclick="alert('顯示文字雲');" #{chapter[:name]}
+              == "#{chapter[:name]}"
             td
                 button#button-create-concepts.btn.btn-success type='submit'
                   i.fa.fa-plus aria-hidden="true"  製作文字雲
+            td
                 button#button-create-concepts.btn.btn-success type='submit'
                   i.fa.fa-plus aria-hidden="true"  顯示文字雲

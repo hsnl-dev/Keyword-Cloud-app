@@ -7,12 +7,12 @@ class KeywordCloudApp < Sinatra::Base
       @auth_token = session[:auth_token]
       @cid = params[:course_id]
       @course = GetCourseContents.call(current_uid: @current_uid,
-                                      auth_token: @auth_token,
-                                      course_id: params[:course_id])
+                                       auth_token: @auth_token,
+                                       course_id: params[:course_id])
       @concepts = session[:concepts]
       @slides = session[:slides]
       @subtitles = session[:subtitles]
-      
+
       slim(:folder_type)
     else
       slim(:login)
