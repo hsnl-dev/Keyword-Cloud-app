@@ -15,6 +15,6 @@ p
             td
               == chapter[:chapter_order]
             td
-              a href="/accounts/#{@current_uid}/#{chapter[:course_id]}/folders/#{chapter[:folder_id]}" #{chapter[:name]}
+              a href="/accounts/#{@current_uid}/#{chapter[:course_id]}/folders/#{chapter[:folder_type]}/#{chapter[:folder_id]}" #{chapter[:name]}
             td
               == chapter[:folder_type]

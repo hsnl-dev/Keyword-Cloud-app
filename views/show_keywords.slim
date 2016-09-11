@@ -1,0 +1,26 @@
+h2
+  == "#{@course['data']}"
+
+.panel.panel-primary
+  .panel-heading 章節列表
+  .panel-body
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th 章節順序
+          th 章節名稱
+          th
+          th
+      tbody
+        - @folder.each do |chapter|
+          tr
+            td
+              == chapter[:chapter_order]
+            td
+              == "#{chapter[:name]}"
+            td
+                button#button-create-concepts.btn.btn-success type='submit'
+                  i.fa.fa-plus aria-hidden="true"  製作文字雲
+            td
+                button#button-create-concepts.btn.btn-success type='submit'
+                  i.fa.fa-plus aria-hidden="true"  顯示文字雲
