@@ -28,6 +28,33 @@ class KeywordCloudApp < Sinatra::Base
     end
   end
 
+  post '/accounts/:uid/:course_id/:folder_type/:folder_id/inpute/' do
+    if @current_uid && @current_uid.to_s == params[:uid]
+      @auth_token = session[:auth_token]
+      @cid = params[:course_id]
+      @folder_type = params[:folder_type]
+      folder_url = "/accounts/#{@current_uid}/#{@cid}/#{@folder_type}/#{params[:folder_id]}"
+      begin
+        puts params['inputToUpload']
+        # new_file = CreateFile.call(
+        #   current_uid: @current_uid,
+        #   auth_token: session[:auth_token],
+        #   course_id: params[:course_id],
+        #   folder_id: params[:folder_id],
+        #   filename: params['fileToUpload'][:filename],
+        #   description: params['fileToUpload'][:type],
+        #   document: params['fileToUpload'][:tempfile])
+
+        flash[:notice] = '這是您的新文件！'
+        redirect folder_url
+      rescue => e
+        flash[:error] = 'Something went wrong -- we will look into it!'
+        logger.error "NEW FILE FAIL: #{e}"
+        redirect folder_url
+      end
+    end
+  end
+
   get '/accounts/:uid/:course_id/:folder_type/:folder_id/files/' do
     @cid = params[:course_id]
     @folder_type = params[:folder_type]
