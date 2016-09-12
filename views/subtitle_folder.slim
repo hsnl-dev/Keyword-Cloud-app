@@ -10,41 +10,20 @@ h2
             th 檔案名稱
             th 檔案上傳
         tbody
-            - @video_name.each do |video_name|
+            - @video_info.each do |video|
               tr
                 td
-                  a href="" #{video_name}
+                  == "#{video[:name]}"
                 td
-                  - unless @folder[:files].empty?
-                    - @folder[:files].each do |f|
-                        p| #{f[:filename]}
+                  - unless "#{video[:filename]}".empty?
+                      p 
+                        == "#{video[:filename]}"
                   - else
                       p
                         |目前尚無檔案，請上傳檔案。
                 td
                   button.btn.btn-success data-toggle="modal" data-target="#newFileModal"
                     i.fa.fa-plus aria-hidden="true"  新增檔案
-/.panel.panel-info
-/  .panel-heading 檔案列表
-/  .panel-body
-/    table.table.table-striped.table-hover
-/      thead
-/        tr
-/          th 檔案名稱
-/          / th Download
-/      tbody
-/        - unless @folder[:files].empty?
-/          - @folder[:files].each do |f|
-/            tr
-/              td #{f[:filename]}
-/        - else
-/            p
-/             | 目前尚無檔案，請上傳檔案。
-/
-/    button.btn.btn-success data-toggle="modal" data-target="#newFileModal"
-/      i.fa.fa-plus aria-hidden="true"  新增檔案
-
-
 
 div id="newFileModal" class="modal fade" role="dialog"
   div class="modal-dialog"
