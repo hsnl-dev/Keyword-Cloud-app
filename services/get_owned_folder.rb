@@ -15,6 +15,7 @@ class GetOwnedFolder
         course_id: info['data']['course_id'],
         folder_type: info['data']['folder_type'],
         chapter_order: info['data']['chapter_order'],
+        chapter_id: info['data']['chapter_id'],
         name: info['data']['name'],
         folder_url: info['data']['folder_url_encrypted']}
     end
