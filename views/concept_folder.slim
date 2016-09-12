@@ -8,7 +8,6 @@ h2
       thead
         tr
           th 檔案名稱
-          / th Download
       tbody
         - unless @folder[:files].empty?
           - @folder[:files].each do |f|
@@ -19,7 +18,11 @@ h2
              | 目前尚無檔案，請上傳檔案。
     button.btn.btn-success data-toggle="modal" data-target="#newFileModal"
       i.fa.fa-plus aria-hidden="true"  新增檔案
-    button.btn.btn-info data-target="#myModal" data-toggle="modal" type="button" 自行輸入關鍵字
+    p
+    
+    button.btn.btn-success data-toggle="modal" data-target="#newInputModal"
+      i.fa.fa-plus aria-hidden="true"  輸入關鍵字
+
 div id="newFileModal" class="modal fade" role="dialog"
   div class="modal-dialog"
     div class="modal-content"
@@ -45,25 +48,18 @@ div id="newFileModal" class="modal fade" role="dialog"
             .col-xs-1
               button.btn.btn-success name="submit" type="submit" value="Upload" 確定
 
-
-/! Trigger the modal with a button
-/!button.btn.btn-info.btn-lg data-target="#myModal" data-toggle="modal" type="button"  Open Modal
-/! Modal
-#myModal.modal.fade role="dialog"
-  .modal-dialog.modal-lg
-    /! Modal content
+div id="newInputModal" class="modal fade" role="dialog"
+  .modal-dialog
     .modal-content
       .modal-header
-        button.close data-dismiss="modal" type="button"  &times;
-        h4.modal-title 自行輸入關鍵字
+        h4 輸入關鍵字
       .modal-body
-        p
-        textarea#text cols="100" rows="10" placeholder=("請依照以下格式：\n關鍵字1\n關鍵字2\n關鍵字3\n.\n.\n.\n")
-      .modal-footer
-        button#close.btn.btn-default data-dismiss="modal" onclick="hi()" type="button"  Close
-
-        javascript:
-          document.getElementById('close').onclick = function() {
-            var text = document.getElementById('text').value;
-            alert(text);
-          };
+        form role="form" action="/accounts/#{@current_uid}/#{@folder[:course_id]}/#{@folder_type}/#{@folder[:folder_id]}/input/" enctype="multipart/form-data" method="post" id='confirmationForm'
+          / textarea#text cols="75" rows="10" placeholder=("請依照以下格式：\n關鍵字1\n關鍵字2\n關鍵字3\n.\n.\n.\n")
+          textarea#confirmationText.text cols="75" rows="10" form="confirmationForm" name="confirmationText" placeholder=("請依照以下格式：\n關鍵字1\n關鍵字2\n關鍵字3\n.\n.\n.\n")
+          / input name="inputToUpload" type="textarea" id="inputToUpload"
+          .row
+            .col-xs-10
+              button.btn.btn-default data-dismiss="modal" 離開
+            .col-xs-1
+              button.btn.btn-success name="submit" type="submit" value="Upload" 確定

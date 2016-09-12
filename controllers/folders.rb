@@ -64,10 +64,11 @@ class KeywordCloudApp < Sinatra::Base
       elsif @folder && @folder_type =="concepts"
         slim(:concept_folder)
       elsif @folder && @folder_type =="subtitles"
-        @video_name = GetVideoContents.call(current_uid: @current_uid,
+        @video_info = GetVideoContents.call(current_uid: @current_uid,
                                             auth_token: session[:auth_token],
                                             course_id: @course_id,
-                                            folder_id: @folder_id)
+                                            folder_id: @folder_id,
+                                            folder: @folder)
         slim(:subtitle_folder)
       else
         flash[:error] = '在您的帳號中，我們無法找到資料夾'
