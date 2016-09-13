@@ -54,7 +54,7 @@ class KeywordCloudApp < Sinatra::Base
     if @current_uid && @current_uid.to_s == params[:uid]
       @course_id = params[:course_id]
       @folder_id = params[:folder_id]
-      @folder_type = params[:folder_type]
+      @folder_type = "subtitles"
       @folder = GetFolderContents.call(current_uid: @current_uid,
                                        auth_token: session[:auth_token],
                                        course_id: @course_id,
@@ -79,7 +79,7 @@ class KeywordCloudApp < Sinatra::Base
     if @current_uid && @current_uid.to_s == params[:uid]
       @course_id = params[:course_id]
       @folder_id = params[:folder_id]
-      @folder_type = params[:folder_type]
+      @folder_type = "slides"
       @folder = GetFolderContents.call(current_uid: @current_uid,
                                        auth_token: session[:auth_token],
                                        course_id: @course_id,
@@ -99,7 +99,7 @@ class KeywordCloudApp < Sinatra::Base
     if @current_uid && @current_uid.to_s == params[:uid]
       @course_id = params[:course_id]
       @folder_id = params[:folder_id]
-      @folder_type = params[:folder_type]
+      @folder_type = "concepts"
       @folder = GetFolderContents.call(current_uid: @current_uid,
                                        auth_token: session[:auth_token],
                                        course_id: @course_id,
