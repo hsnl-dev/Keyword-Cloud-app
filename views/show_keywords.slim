@@ -23,7 +23,7 @@ h2
             td
                 button#button-create-concepts.btn.btn-success data-target="#myModal" data-toggle="modal" type='submit'
                   i.fa.fa-plus aria-hidden="true"  顯示文字雲
-                
+
 
 -if @keyword["content"]
   #myModal.modal.fade role="dialog"
@@ -32,58 +32,106 @@ h2
         .modal-header
           button.close data-dismiss="modal" type="button"  &times;
           h4.modal-title 顯示文字雲
-        .modal-body
-          #tag_vis 
+        .modal-body style="width:800;height:400px;"
+          #tag_vis style="float:left;"
+          #tag_checkbox style="width:150px;height:200px;float:right;"
         .modal-footer
           button#show.btn.btn-default type="button"  Show
           button#close.btn.btn-default data-dismiss="modal" type="button"  Close
-  
-  javascript:
-    var fill = d3.scale.category20();
-    var count = 0;
-    var text = "#{@keyword["content"][0]["attributes"]["keyword"].split("\n")[0]}";
-    text = text.replace(/&#39;/g, '"')
-    var obj = JSON.parse(text);
-    
-    function makekeyword() {
-      alert('請稍待5至10分鐘');
-    }
-    
-    document.getElementById('show').onclick = function () {
-      var keyword = [];
-      for(var objs in obj){
-        count++;
-        keyword.push({'text': objs, 'size': obj[objs]-50});
-      }
-      addTagCloud(keyword);
-    };
-    
-    var addTagCloud = function (keyword) {
-      d3.layout.cloud().size([500, 300])
-          .words(keyword)
-          .rotate(function () { return ~~(Math.random() * 2) * 0; })
-          .font('Impact')
-          .fontSize(function (d) { return d.size; })
-          .on('end', draw)
-          .start();
-    };
-    
-    function draw(words) {
-      d3.select('#tag_vis').append('svg')
-          .attr('width', 500)
-          .attr('height', 300)
-        .append('g')
-          .attr('transform', 'translate(250,150)')
-        .selectAll('text')
-          .data(words)
-        .enter().append('text')
-          .style('font-size', function (d) { return d.size + 'px'; })
-          .style('font-family', 'Impact')
-          .style('fill', function (d, i) { return fill(i); })
-          .attr('text-anchor', 'middle')
-          .attr('transform', function (d) {
-            return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
-          })
-          .text(function (d) { return d.text; });
-    }
-  
+
+          javascript:
+            var fill = d3.scale.category20();
+            var count = 0;
+            var text = "#{@keyword["content"][0]["attributes"]["keyword"].split("\n")[0]}";
+            text = text.replace(/&#39;/g, '"')
+            //var text = '{ "提供" : {' +
+            //          '"vid_list":[["Botnet 能夠用來做什麼", "X61U2DO_1eE", 238, 21]],' +
+            //          '"modalno": 4 , "order": 0.2857142857142857,' +
+            //          '"total_count": 21},'+
+            //          '"hash" : {'+
+            //          '"vid_list":[["Botnet 能夠用來做什麼", "X61U2DO_1eE", 238, 21]],'+
+            //          '"modalno": 4 , "order": 0.5857142857142857,'+
+            //          '"total_count": 50},'+
+            //          '"test" : 19.0'+
+            //          '}' ;
+            var obj = JSON.parse(text);
+            var keyword = [];
+
+            function makekeyword() {
+              alert('請稍待5至10分鐘');
+            }
+
+            function choice(my_form,count){
+                var checkboxes = document.getElementsByName('check');
+                var listToDelete = [];
+                for (var i=0, n=checkboxes.length;i<n;i++) {
+                    if (checkboxes[i].checked){
+                        listToDelete.push(checkboxes[i].value);
+                    }
+                }
+                for(var i = 0; i < keyword.length; i++) {
+                    var obj = keyword[i];
+                    //console.log(obj);
+                    if(listToDelete.indexOf(obj.text) !== -1) {
+                        keyword.splice(i, 1);
+                    }
+                }
+                console.log(keyword);
+                d3.select("svg").remove();
+                addTagCloud(keyword);
+            }
+
+            document.getElementById('show').onclick = function() {
+               var order = [];
+               for(var objs in obj){
+                  count++;
+                  if(obj[objs]["order"]==null){
+                    console.log("type 1");
+                    keyword.push({'text': objs, 'size': obj[objs]});
+
+                  }else{
+                    console.log("type 2");
+                    keyword.push({'text': objs, 'size': obj[objs]["order"]*50});
+                  }
+
+               }
+
+               var checkboxes = "<FORM NAME=\"my_form\" METHOD=POST TARGET>";
+
+               for(var i=0; i < count ; i++){
+                  checkboxes += "<input type = \"checkbox\" value  = \""+keyword[i]['text']+"\""+"NAME=\"check\""+"id = \""+i+"\">"+" "+keyword[i]['text']+"</input></br>";
+               }
+               checkboxes += "<INPUT TYPE=\"button\" VALUE=\"確認\" onClick=\"choice(this.form,count)\">";
+               document.getElementById('tag_checkbox').innerHTML = checkboxes;
+               addTagCloud(keyword);
+               document.getElementById('show').disabled = 'true';
+
+            };
+            var addTagCloud = function (keyword) {
+              d3.layout.cloud().size([400, 300])
+                  .words(keyword)
+                  .rotate(function () { return ~~(Math.random() * 2) * 0; })
+                  .font('Impact')
+                  .fontSize(function (d) { return d.size; })
+                  .on('end', draw)
+                  .start();
+            };
+
+            function draw(words) {
+              d3.select('#tag_vis').append('svg')
+                  .attr('width', 350)
+                  .attr('height', 300)
+                .append('g')
+                  .attr('transform', 'translate(250,150)')
+                .selectAll('text')
+                  .data(words)
+                .enter().append('text')
+                  .style('font-size', function (d) { return d.size + 'px'; })
+                  .style('font-family', 'Impact')
+                  .style('fill', function (d, i) { return fill(i); })
+                  .attr('text-anchor', 'middle')
+                  .attr('transform', function (d) {
+                    return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
+                  })
+                  .text(function (d) { return d.text; });
+            }
