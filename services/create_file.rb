@@ -22,6 +22,8 @@ class CreateFile
       end
     elsif description == 'text/plain'
       data = document.read
+    elsif description == 'text/handwrite'
+      data = document
     end
 
     base64_encode_document = Base64.strict_encode64(data)
