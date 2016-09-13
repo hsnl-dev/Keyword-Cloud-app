@@ -47,6 +47,6 @@ h2
                 button#button-create-subtitles.btn.btn-danger type='submit'
                   i.fa.fa-plus aria-hidden="true"  建立資料夾
 
-form method='post' action='/accounts/#{@current_uid}/#{@cid}/chapter/keyword'
+form method='get' action='/keyword/#{@current_uid}/#{@cid}/chapter'
   button.btn.btn-info.btn-lg.btn-block type='submit'
     i.fa.fa-plus aria-hidden="true"  顯示文字雲
