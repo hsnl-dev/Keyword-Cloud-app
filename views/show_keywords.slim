@@ -19,7 +19,7 @@ h2
             td
               == "#{chapter[:name]}"
             td
-                a.btn.btn-danger href="/keyword/#{@current_uid}/#{@course_id}/chapter/#{chapter[:chapter_id]}/makekeyword" role="button" onclick="makekeyword();" 製作文字雲
+                a#make.btn.btn-danger href="/keyword/#{@current_uid}/#{@course_id}/chapter/#{chapter[:chapter_id]}/makekeyword" role="button" 製作文字雲
             td
                 button#button-create-concepts.btn.btn-success data-target="#myModal" data-toggle="modal" type='submit'
                   i.fa.fa-plus aria-hidden="true"  顯示文字雲
@@ -34,7 +34,7 @@ h2
           h4.modal-title 顯示文字雲
         .modal-body style="width:800;height:400px;"
           #tag_vis style="float:left;"
-          #tag_checkbox style="width:150px;height:200px;float:right;"
+          #tag_checkbox style="width:200px;height:300px;float:right;overflow:scroll;"
         .modal-footer
           button#show.btn.btn-default type="button"  Show
           button#close.btn.btn-default data-dismiss="modal" type="button"  Close
@@ -56,8 +56,8 @@ h2
             //          '}' ;
             var obj = JSON.parse(text);
             var keyword = [];
-
-            function makekeyword() {
+            
+            document.getElementById('make').onclick = function() {
               alert('請稍待5至10分鐘');
             }
 
@@ -108,7 +108,7 @@ h2
 
             };
             var addTagCloud = function (keyword) {
-              d3.layout.cloud().size([400, 300])
+              d3.layout.cloud().size([600, 300])
                   .words(keyword)
                   .rotate(function () { return ~~(Math.random() * 2) * 0; })
                   .font('Impact')
@@ -119,10 +119,10 @@ h2
 
             function draw(words) {
               d3.select('#tag_vis').append('svg')
-                  .attr('width', 350)
+                  .attr('width', 600)
                   .attr('height', 300)
                 .append('g')
-                  .attr('transform', 'translate(250,150)')
+                  .attr('transform', 'translate(300,150)')
                 .selectAll('text')
                   .data(words)
                 .enter().append('text')
