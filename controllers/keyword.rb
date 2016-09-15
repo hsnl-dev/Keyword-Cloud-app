@@ -59,4 +59,19 @@ class KeywordCloudApp < Sinatra::Base
       slim(:home)
     end
   end
+  post '/keyword/:uid/:course_id/chapter/:chapter_id/postkeyword/' do
+    if @current_uid && @current_uid.to_s == params[:uid]
+      @auth_token = session[:auth_token]
+      @cid = params[:course_id]
+      print("~~~~~~~~~~~~~~\n\n\n");
+      print(JSON.parse(request.body.read))
+
+      # begin
+      # rescue => e
+      #   flash[:error] = 'Something went wrong -- we will look into it!'
+      #   logger.error "NEW FILE FAIL: #{e}"
+      #   redirect folder_url
+      # end
+    end
+  end
 end
