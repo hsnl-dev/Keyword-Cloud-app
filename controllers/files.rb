@@ -62,7 +62,30 @@ end
     folder_url = "/accounts/#{@current_uid}/#{@cid}/#{@folder_type}/#{params[:folder_id]}"
     redirect folder_url
   end
+  post '/accounts/:uid/:course_id/:folder_type/:folder_id/files/delete' do
+    if @current_uid && @current_uid.to_s == params[:uid]
 
+      @auth_token = session[:auth_token]
+      @cid = params[:course_id]
+      @folder_type = params[:folder_type]
+      folder_url = "/accounts/#{@current_uid}/#{@cid}/#{@folder_type}/#{params[:folder_id]}"
+      begin
+        print(params[:filename])
+         delete_file = DeleteFile.call(
+            current_uid: @current_uid,
+            auth_token: session[:auth_token],
+            course_id: params[:course_id],
+            folder_id: params[:folder_id],
+            filename: params[:filename]
+            )
+        redirect folder_url
+      rescue => e
+        flash[:error] = 'Something went wrong -- we will look into it!'
+        logger.error "NEW FILE FAIL: #{e}"
+        redirect folder_url
+      end
+    end
+  end
   # get '/accounts/:uid/:course_id/folders/:folder_id/files/:file_id' do
   #   if @current_uid && @current_uid.to_s == params[:uid]
   #     begin
