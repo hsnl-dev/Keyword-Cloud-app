@@ -17,9 +17,9 @@ h2
                 form#delete_data method='post' action='/accounts/#{@current_uid}/#{@folder[:course_id]}/#{@folder_type}/#{@folder[:folder_id]}/files/delete'
                   input name="filename" style="display:none;" type="text" value="#{f[:filename]}" /
                   button#delete_data.btn.btn-danger type='submit' 刪除
-         - else
-            p
-             | 目前尚無檔案，請上傳檔案。
+        - else
+          p 
+            | 目前尚無檔案，請上傳檔案。
     button.btn.btn-success data-toggle="modal" data-target="#newFileModal"
       i.fa.fa-plus aria-hidden="true"  新增檔案
     p
