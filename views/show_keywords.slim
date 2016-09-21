@@ -19,7 +19,7 @@ h2
             td
               == "#{chapter[:name]}"
             td
-                a#make.btn.btn-danger href="/keyword/#{@current_uid}/#{@course_id}/chapter/#{chapter[:chapter_id]}/makekeyword" role="button" 製作文字雲
+                a.btn.btn-danger href="/keyword/#{@current_uid}/#{@course_id}/chapter/#{chapter[:chapter_id]}/makekeyword" role="button" onclick="myFunction()" 製作文字雲
             td
                 button#button-create-concepts.btn.btn-success data-target="#myModal" data-toggle="modal" type='submit'
                   i.fa.fa-plus aria-hidden="true"  顯示文字雲
@@ -34,9 +34,9 @@ h2
           h4.modal-title 顯示文字雲
         .modal-body style="width:800;height:400px;"
           #tag_vis style="float:left;"
-          #tag_checkbox style="width:100px;height:300px;float:right;overflow:scroll;"
+          #tag_checkbox style="width:200px;height:300px;overflow:scroll;"
         .modal-footer style="height:65px;"
-          //button#show.btn.btn-default type="button"  Show
+          button#show.btn.btn-default type="button"  Show
           button#close.btn.btn-default data-dismiss="modal" type="button"  Close
 
           javascript:
@@ -45,21 +45,13 @@ h2
             var text = "#{@keyword["content"][0]["attributes"]["keyword"].split("\n")[0]}";
             text = text.replace(/&#39;/g, '"')
             var post_url = "/keyword/#{@current_uid}/#{@course_id}/chapter/#{@chapter_id}/postkeyword/";
-            //var text = '{ "提供" : {' +
-            //          '"vid_list":[["Botnet 能夠用來做什麼", "X61U2DO_1eE", 238, 21]],' +
-            //          '"modalno": 4 , "order": 0.2857142857142857,' +
-            //          '"total_count": 21},'+
-            //          '"hash" : {'+
-            //          '"vid_list":[["Botnet 能夠用來做什麼", "X61U2DO_1eE", 238, 21]],'+
-            //          '"modalno": 4 , "order": 0.5857142857142857,'+
-            //          '"total_count": 50},'+
-            //          '"test" : 19.0'+
-            //          '}' ;
+            
             var obj = JSON.parse(text);
             var keyword = [];
             var new_keyword = [];
-            document.getElementById('make').onclick = function() {
-              alert('請稍待5至10分鐘');
+            
+            function myFunction(){
+              alert("請稍待5至10分鐘")
             }
 
             function choice(my_form,count){
@@ -73,7 +65,6 @@ h2
                 var len = keyword.length;
                 for(var k = 0; k < keyword.length; k++) {
                     var obj = keyword[k];
-                    //console.log(obj);
                     if(listToDelete.indexOf(obj.text) !== -1) {
                         keyword[k] = {};
                     }
@@ -81,7 +72,6 @@ h2
                 d3.select("svg").remove();
                 addTagCloud(keyword);
                 for(var i =0;i<keyword.length;i++){
-                  //console.log(keyword[i].length);
                   if(keyword[i].text != null){
                     var word_to_store = keyword[i].text;
                     var size_to_store = keyword[i].size;
@@ -98,13 +88,13 @@ h2
                 xhr.send(JSON.stringify(new_keyword));
             }
 
-            document.getElementById('button-create-concepts').onclick = function() {
+            document.getElementById('show').onclick = function() {
                var order = [];
                for(var objs in obj){
                   count++;
                   if(obj[objs]["order"]==null){
                     console.log("type 1");
-                    keyword.push({'text': objs, 'size': obj[objs]});
+                    keyword.push({'text': objs, 'size': obj[objs]-20});
 
                   }else{
                     console.log("type 2");
@@ -125,7 +115,7 @@ h2
 
             };
             var addTagCloud = function (keyword) {
-              d3.layout.cloud().size([300, 300])
+              d3.layout.cloud().size([600, 300])
                   .words(keyword)
                   .rotate(function () { return ~~(Math.random() * 2) * 0; })
                   .font('Impact')
@@ -136,7 +126,7 @@ h2
 
             function draw(words) {
               d3.select('#tag_vis').append('svg')
-                  .attr('width', 400)
+                  .attr('width', 600)
                   .attr('height', 300)
                 .append('g')
                   .attr('transform', 'translate(300,150)')

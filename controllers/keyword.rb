@@ -63,8 +63,8 @@ class KeywordCloudApp < Sinatra::Base
     if @current_uid && @current_uid.to_s == params[:uid]
       @auth_token = session[:auth_token]
       @cid = params[:course_id]
-      print("~~~~~~~~~~~~~~\n\n\n");
-      print(JSON.parse(request.body.read))
+      # print("~~~~~~~~~~~~~~\n\n\n")
+      # print(JSON.parse(request.body.read))
 
       # begin
       # rescue => e
