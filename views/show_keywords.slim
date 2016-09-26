@@ -19,9 +19,9 @@ h2
             td
               == "#{chapter[:name]}"
             td
-                a.btn.btn-danger href="/keyword/#{@current_uid}/#{@course_id}/chapter/#{chapter[:chapter_id]}/makekeyword" role="button" onclick="myFunction()" 製作文字雲
+                a#make.btn.btn-danger href="/keyword/#{@current_uid}/#{@course_id}/chapter/#{chapter[:chapter_id]}/makekeyword" role="button" onclick="make()"製作文字雲
             td
-                button#button-create-concepts.btn.btn-success data-target="#myModal" data-toggle="modal" type='submit'
+                button#button-create-concepts.btn.btn-success data-target="#myModal" data-toggle="modal" type='submit' onclick="showkeywords()"
                   i.fa.fa-plus aria-hidden="true"  顯示文字雲
 
 
@@ -36,7 +36,7 @@ h2
           #tag_vis style="float:left;"
           #tag_checkbox style="width:200px;height:300px;overflow:scroll;"
         .modal-footer style="height:65px;"
-          button#show.btn.btn-default type="button"  Show
+          / button#show.btn.btn-default type="button"  Show
           button#close.btn.btn-default data-dismiss="modal" type="button"  Close
 
           javascript:
@@ -50,7 +50,7 @@ h2
             var keyword = [];
             var new_keyword = [];
             
-            function myFunction(){
+            function make(){
               alert("請稍待5至10分鐘")
             }
 
@@ -88,7 +88,7 @@ h2
                 xhr.send(JSON.stringify(new_keyword));
             }
 
-            document.getElementById('show').onclick = function() {
+            function showkeywords(){
                var order = [];
                for(var objs in obj){
                   count++;
@@ -117,7 +117,7 @@ h2
             var addTagCloud = function (keyword) {
               d3.layout.cloud().size([600, 300])
                   .words(keyword)
-                  .rotate(function () { return ~~(Math.random() * 2) * 0; })
+                  .rotate(function () { return ~~(Math.random() * 2) * 90; })
                   .font('Impact')
                   .fontSize(function (d) { return d.size; })
                   .on('end', draw)
