@@ -13,6 +13,7 @@ gem 'rack-flash3'
 gem 'rack-ssl-enforcer'
 gem 'secure_headers'
 gem 'pdf-reader'
+gem "rack-timeout"
 
 group :development do
   gem 'rerun'
