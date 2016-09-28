@@ -16,6 +16,7 @@ class GetVideoContents
     content.map.with_index do |info, index|
       { name: info["attributes"]["name"].to_s,
         video_order: info["attributes"]["video_order"].to_i,
+        video_id: info["attributes"]["video_id"].to_i,
         filename: f[index]}
     end
   end
