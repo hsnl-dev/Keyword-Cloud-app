@@ -16,6 +16,7 @@ h2
                   == "#{video[:name]}"
                 td
                   == "#{video[:video_id]}"
+
                 td
                   - unless "#{video[:filename]}".empty?
                       p
@@ -27,30 +28,29 @@ h2
                   - else
                       p
                         |目前尚無檔案，請上傳檔案。
-                td
-                  button.btn.btn-success data-toggle="modal" data-target="#newFileModal"
-                    i.fa.fa-plus aria-hidden="true"  新增檔案
-                  div id="newFileModal" class="modal fade" role="dialog"
-                    div class="modal-dialog"
-                      div class="modal-content"
-                        div class="modal-header"
-                          h4 上傳檔案
-                        div class="modal-body"
-                          form role="form" action="/accounts/#{@current_uid}/#{@folder[:course_id]}/#{@folder_type}/#{@folder[:folder_id]}/#{video[:video_id]}/files/" enctype="multipart/form-data" method="post" id='new-file-form'
-                            .form-group
-                              label for='file_input' 選擇檔案:
-                            .fileinput.fileinput-new.input-group data-provides="fileinput"
-                              .form-control data-trigger="fileinput"
-                                i.glyphicon.glyphicon-file.fileinput-exists
-                                span.fileinput-filename
-                              span.input-group-addon.btn.btn-default.btn-file
-                                span.fileinput-new 選擇檔案
-                                span.fileinput-exists 修改
-                                input name="fileToUpload" type="file" id="fileToUpload"
-                              a.input-group-addon.btn.btn-default.fileinput-exists data-dismiss="fileinput" href="#" 移除
+                        button.btn.btn-success data-toggle="modal" data-target="##{video[:video_id]}"
+                          i.fa.fa-plus aria-hidden="true"  上傳檔案
+                        div id="#{video[:video_id]}" class="modal fade" role="dialog"
+                          div class="modal-dialog"
+                            div class="modal-content"
+                              div class="modal-header"
+                                h4 上傳檔案
+                              div class="modal-body"
+                                form role="form" action="/accounts/#{@current_uid}/#{@folder[:course_id]}/#{@folder_type}/#{@folder[:folder_id]}/#{video[:video_id]}/files/" enctype="multipart/form-data" method="post" id='new-file-form'
+                                  .form-group
+                                    label for='file_input' 選擇檔案:
+                                  .fileinput.fileinput-new.input-group data-provides="fileinput"
+                                    .form-control data-trigger="fileinput"
+                                      i.glyphicon.glyphicon-file.fileinput-exists
+                                      span.fileinput-filename
+                                    span.input-group-addon.btn.btn-default.btn-file
+                                      span.fileinput-new 選擇檔案
+                                      span.fileinput-exists 修改
+                                      input name="fileToUpload" type="file" id="fileToUpload"
+                                    a.input-group-addon.btn.btn-default.fileinput-exists data-dismiss="fileinput" href="#" 移除
 
-                            .row
-                              .col-xs-10
-                                button.btn.btn-default data-dismiss="modal" 離開
-                              .col-xs-1
-                                button.btn.btn-success name="submit" type="submit" value="Upload" 確定
+                                  .row
+                                    .col-xs-10
+                                      button.btn.btn-default data-dismiss="modal" 離開
+                                    .col-xs-1
+                                      button.btn.btn-success name="submit" type="submit" value="Upload" 確定
