@@ -1,13 +1,13 @@
 require 'sinatra'
 require 'rack-flash'
-require "rack-timeout"
+# require "rack-timeout"
 require 'rack/ssl-enforcer'
 
 # Base class for KeywordCloud Web Application
 class KeywordCloudApp < Sinatra::Base
   enable :logging
 
-  use Rack::Timeout, service_timeout: 200, wait_timeout: false
+  # use Rack::Timeout, service_timeout: 200, wait_timeout: false
 
   use Rack::Session::Cookie, secret: ENV['MSG_KEY'],
                              expire_after: 60 * 60 * 24 * 7
