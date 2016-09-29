@@ -13,6 +13,7 @@ class GetFolderContents
     c = content['data'].map do |info|
       { file_id: info['id'],
         filename: info['data']['filename'],
+        video_id: info['data']['video_id'],
         document_encrypted: info['data']['document_encrypted'],
         checksum: info['data']['checksum']}
     end
