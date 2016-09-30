@@ -7,8 +7,6 @@ require 'rack/ssl-enforcer'
 class KeywordCloudApp < Sinatra::Base
   enable :logging
 
-  # use Rack::Timeout, service_timeout: 200, wait_timeout: false
-
   use Rack::Session::Cookie, secret: ENV['MSG_KEY'],
                              expire_after: 60 * 60 * 24 * 7
   use Rack::Flash
