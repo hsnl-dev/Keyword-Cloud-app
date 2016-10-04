@@ -50,28 +50,29 @@ class KeywordCloudApp < Sinatra::Base
                                     course_id: @cid,
                                     folder_type: "subtitles")
       @keyword = ShowKeyword.call(current_uid: @current_uid,
-                                    auth_token: @auth_token,
-                                    course_id: @cid,
-                                    chapter_id: @chapter_id)
+                                  auth_token: @auth_token,
+                                  course_id: @cid,
+                                  chapter_id: @chapter_id)
       @ordered_folder = @folder.sort_by{ |chapter| chapter[:chapter_order] }
       slim(:show_keywords)
     else
       slim(:home)
     end
   end
+
   post '/keyword/:uid/:course_id/chapter/:chapter_id/postkeyword/' do
     if @current_uid && @current_uid.to_s == params[:uid]
       @auth_token = session[:auth_token]
       @cid = params[:course_id]
-      # print("~~~~~~~~~~~~~~\n\n\n")
-      # print(JSON.parse(request.body.read))
-
-      # begin
-      # rescue => e
-      #   flash[:error] = 'Something went wrong -- we will look into it!'
-      #   logger.error "NEW FILE FAIL: #{e}"
-      #   redirect folder_url
-      # end
+      @chid = params[:chapter_id]
+      delete_keyword_arr = JSON.parse(request.body.read)
+      CreateFinalKeyword.call(current_uid: @current_uid,
+                              auth_token: @auth_token,
+                              course_id: @cid,
+                              chapter_id: @chid,
+                              delete_keyword: delete_keyword_arr)
+    else
+      slim(:login)
     end
   end
 end
