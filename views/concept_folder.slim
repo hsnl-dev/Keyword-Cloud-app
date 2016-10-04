@@ -1,5 +1,5 @@
 h2
-  == "#{@folder_type}"
+  == "#{@folder[:folder_name]}"
 
 .panel.panel-info
   .panel-heading 檔案列表
@@ -8,6 +8,7 @@ h2
       thead
         tr
           th 檔案名稱
+          th 檔案狀態
       tbody
         - unless @folder[:files].empty?
           - @folder[:files].each do |f|
