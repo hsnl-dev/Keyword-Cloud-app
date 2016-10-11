@@ -9,12 +9,13 @@ h2
             th 影片名稱
             th 檔案名稱
             th 檔案狀態
+            th 下載
         tbody
             - @video_info.each do |video|
               tr
                 td
                   == "#{video[:name]}"
-                td
+                td 
                   - unless "#{video[:filename]}".empty?
                       p
                         == "#{video[:filename]}"
@@ -22,6 +23,9 @@ h2
                           form#delete_data method='post' action='/accounts/#{@current_uid}/#{@folder[:course_id]}/#{@folder_type}/#{@folder[:folder_id]}/#{video[:video_id]}/files/delete'
                             input name="filename" style="display:none;" type="text" value="#{video[:filename]}" /
                             button#delete_data.btn.btn-danger type='submit' 刪除
+                        td 
+                          a href="/accounts/#{@current_uid}/#{@folder[:course_id]}/#{@folder_type}/#{@folder[:folder_id]}/#{video[:video_id]}/files/#{video[:file_id]}" 
+                            i.fa.fa-download aria-hidden="true"  Download
 
                   - else
                       p
@@ -53,3 +57,4 @@ h2
                                         button.btn.btn-default data-dismiss="modal" 離開
                                       .col-xs-1
                                         button.btn.btn-success name="submit" type="submit" value="Upload" 確定
+                        td

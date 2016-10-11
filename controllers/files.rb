@@ -89,6 +89,57 @@ class KeywordCloudApp < Sinatra::Base
     redirect folder_url
   end
 
+  get '/accounts/:uid/:course_id/:folder_type/:folder_id/files/:file_id' do
+    if @current_uid && @current_uid.to_s == params[:uid]
+      @auth_token = session[:auth_token]
+      @cid = params[:course_id]
+      @folder_type = params[:folder_type]
+      @file_id = params[:file_id]
+      begin
+        @folder_url = "/accounts/#{@current_uid}/#{@cid}/#{@folder_type}/#{params[:folder_id]}"
+        filename, temp_file = GetFileDetails.call(
+          current_uid: @current_uid,
+          auth_token: @auth_token,
+          course_id: @cid,
+          folder_id: params[:folder_id],
+          file_id: @file_id)
+        send_file(temp_file.path, :filename => filename, :disposition => 'attachment')
+        # puts "FILE FOUND: #{temp_file}"
+        temp_file.unlink
+      rescue => e
+        logger.error "GET FILE FAILED: #{e}"
+        flash[:error] = "Could not get that file"
+        redirect @folder_url
+      end
+    end
+  end
+
+  get '/accounts/:uid/:course_id/:folder_type/:folder_id/:video_id/files/:file_id' do
+    if @current_uid && @current_uid.to_s == params[:uid]
+      @auth_token = session[:auth_token]
+      @cid = params[:course_id]
+      @folder_type = params[:folder_type]
+      @file_id = params[:file_id]
+      begin
+        @folder_url = "/accounts/#{@current_uid}/#{@cid}/#{@folder_type}/#{params[:folder_id]}"
+        filename, temp_file = GetSubtitleDetails.call(
+          current_uid: @current_uid,
+          auth_token: @auth_token,
+          course_id: @cid,
+          folder_id: params[:folder_id],
+          video_id: params[:video_id],
+          file_id: @file_id)
+        send_file(temp_file.path, :filename => filename, :disposition => 'attachment')
+        # puts "FILE FOUND: #{temp_file}"
+        temp_file.unlink
+      rescue => e
+        logger.error "GET FILE FAILED: #{e}"
+        flash[:error] = "Could not get that file"
+        redirect @folder_url
+      end
+    end
+  end
+
   post '/accounts/:uid/:course_id/:folder_type/:folder_id/files/delete' do
     if @current_uid && @current_uid.to_s == params[:uid]
 
