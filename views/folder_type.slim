@@ -14,39 +14,24 @@ h2
           td 
             |關鍵字
           td
-            - if @concepts
-              form#form-create-concepts method='get' action='/accounts/#{@current_uid}/#{@cid}/concepts'
-                button#button-create-concepts.btn.btn-success type='submit'
-                  i.fa.fa-plus aria-hidden="true"  資料夾
-            -else
-              form#form-create-concepts method='post' action='/accounts/#{@current_uid}/#{@cid}/concepts'
-                button#button-create-concepts.btn.btn-danger type='submit'
-                  i.fa.fa-plus aria-hidden="true"  建立資料夾
+            form#form-create-concepts method='post' action='/accounts/#{@current_uid}/#{@cid}/concepts'
+              button#button-create-concepts.btn.btn-success type='submit'
+                i.fa.fa-plus aria-hidden="true"  資料夾
         tr
           td
             |課程講義
           td
-            - if @slides
-              form#form-create-slides method='get' action='/accounts/#{@current_uid}/#{@cid}/slides'
-                button#button-create-slides.btn.btn-success type='submit'
-                  i.fa.fa-plus aria-hidden="true"  資料夾
-            -else
-              form#form-create-slides method='post' action='/accounts/#{@current_uid}/#{@cid}/slides'
-                button#button-create-slides.btn.btn-danger type='submit'
-                  i.fa.fa-plus aria-hidden="true"  建立資料夾
+            form#form-create-slides method='post' action='/accounts/#{@current_uid}/#{@cid}/slides'
+              button#button-create-slides.btn.btn-success type='submit'
+                i.fa.fa-plus aria-hidden="true"  資料夾
         tr
           td
             |課程字幕
           td
-            -if @subtitles
-              form#form-create-subtitles method='get' action='/accounts/#{@current_uid}/#{@cid}/subtitles'
-                button#button-create-subtitles.btn.btn-success type='submit'
-                  i.fa.fa-plus aria-hidden="true"  資料夾
-            -else
-              form#form-create-subtitles method='post' action='/accounts/#{@current_uid}/#{@cid}/subtitles'
-                button#button-create-subtitles.btn.btn-danger type='submit'
-                  i.fa.fa-plus aria-hidden="true"  建立資料夾
+            form#form-create-subtitles method='post' action='/accounts/#{@current_uid}/#{@cid}/subtitles'
+              button#button-create-subtitles.btn.btn-success type='submit'
+                i.fa.fa-plus aria-hidden="true"  資料夾
 
 form method='get' action='/keyword/#{@current_uid}/#{@cid}/chapter'
   button.btn.btn-info.btn-lg.btn-block type='submit'
-    i.fa.fa-plus aria-hidden="true"  顯示文字雲
+    i.fa.fa-plus aria-hidden="true"  顯示關鍵雲

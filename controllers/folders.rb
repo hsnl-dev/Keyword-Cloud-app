@@ -1,6 +1,6 @@
 require 'sinatra'
 
-# Click course and show three folders(concept,subtitle,slide)
+# Click course and show three folders(concept,subtitle,)
 class KeywordCloudApp < Sinatra::Base
   post '/accounts/:uid/:course_id/:folder_type' do
     folders_url = "/accounts/#{@current_uid}/#{params[:course_id]}/#{params[:folder_type]}"
@@ -17,15 +17,6 @@ class KeywordCloudApp < Sinatra::Base
 
 
       if new_folder
-        if folder_type == 'concepts'
-          session[:concepts] = 1
-        elsif folder_type == 'slides'
-          session[:slides] = 1
-        elsif folder_type == 'subtitles'
-          session[:subtitles] = 1
-        end
-
-        flash[:notice] = "該資料夾成功建立！"
         redirect "/accounts/#{@current_uid}/#{params[:course_id]}/#{new_folder.first['attributes']['folder_type']}"
       else
         flash[:error] = '無法建立資料夾！'
@@ -114,5 +105,4 @@ class KeywordCloudApp < Sinatra::Base
       redirect '/login'
     end
   end
-
 end
