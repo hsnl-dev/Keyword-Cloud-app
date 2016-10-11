@@ -9,10 +9,15 @@ class KeywordCloudApp < Sinatra::Base
       @folder = GetOwnedFolder.call(current_uid: @current_uid,
                                     auth_token: session[:auth_token],
                                     course_id: @course_id,
-                                    folder_type: "subtitles")
+                                    folder_type: 'slides')
+
       @keyword = GetCourseContents.call(current_uid: @current_uid,
-                                       auth_token: session[:auth_token],
-                                       course_id: params[:course_id])
+                                        auth_token: session[:auth_token],
+                                        course_id: params[:course_id])
+
+      @keyword_chid = HasKeywordChap.call(current_uid: @current_uid,
+                                          auth_token: session[:auth_token],
+                                          course_id: @course_id)
       @ordered_folder = @folder.sort_by { |chapter| chapter[:chapter_order] }
       slim(:show_keywords)
     else
@@ -25,16 +30,23 @@ class KeywordCloudApp < Sinatra::Base
       @auth_token = session[:auth_token]
       @course_id = params[:course_id]
       @chapter_id = params[:chapter_id]
+      keyword_url = "/keyword/#{@current_uid}/#{@course_id}/chapter"
       @folder = GetOwnedFolder.call(current_uid: @current_uid,
                                     auth_token: session[:auth_token],
                                     course_id: @course_id,
-                                    folder_type: "subtitles")
+                                    folder_type: 'slides')
+
       @keyword = MakeKeyword.call(current_uid: @current_uid,
                                   auth_token: @auth_token,
                                   course_id: @course_id,
                                   chapter_id: @chapter_id)
+
+      @keyword_chid = HasKeywordChap.call(current_uid: @current_uid,
+                                          auth_token: session[:auth_token],
+                                          course_id: @course_id)
       @ordered_folder = @folder.sort_by{ |chapter| chapter[:chapter_order] }
-      slim(:show_keywords)
+      # slim(:show_keywords)
+      redirect keyword_url
     else
       slim(:home)
     end
@@ -43,18 +55,23 @@ class KeywordCloudApp < Sinatra::Base
   get '/keyword/:uid/:course_id/chapter/:chapter_id/showkeyword' do
     if @current_uid && @current_uid.to_s == params[:uid]
       @auth_token = session[:auth_token]
-      @cid = params[:course_id]
+      @course_id = params[:course_id]
       @chapter_id = params[:chapter_id]
+      keyword_url = "/keyword/#{@current_uid}/#{@course_id}/chapter"
       @folder = GetOwnedFolder.call(current_uid: @current_uid,
                                     auth_token: session[:auth_token],
-                                    course_id: @cid,
-                                    folder_type: "subtitles")
+                                    course_id: @course_id,
+                                    folder_type: 'slides')
       @keyword = ShowKeyword.call(current_uid: @current_uid,
                                   auth_token: @auth_token,
-                                  course_id: @cid,
+                                  course_id: @course_id,
                                   chapter_id: @chapter_id)
+      @keyword_chid = HasKeywordChap.call(current_uid: @current_uid,
+                                          auth_token: session[:auth_token],
+                                          course_id: @course_id)
       @ordered_folder = @folder.sort_by{ |chapter| chapter[:chapter_order] }
-      slim(:show_keywords)
+      # slim(:show_keywords)
+      redirect keyword_url
     else
       slim(:home)
     end
