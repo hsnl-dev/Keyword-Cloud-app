@@ -14,6 +14,7 @@ gem 'rack-ssl-enforcer'
 gem 'secure_headers'
 gem 'pdf-reader'
 gem "rack-timeout"
+gem 'faker'
 
 group :development do
   gem 'rerun'
