@@ -11,14 +11,14 @@ body {
 /* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
 
 .business-header {
-    height: 400px;
-    background: url('/img/keyword.jpeg') center center no-repeat scroll;
+    /*background: url('/img/keyword.jpeg') center center no-repeat scroll;*/
+    margin-top: 1%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
 }
-
+.divcss5 img{width:85%; height:40%}
 
 footer {
     margin: 50px 0;

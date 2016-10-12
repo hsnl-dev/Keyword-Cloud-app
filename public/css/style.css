@@ -16,3 +16,19 @@ html, body
 body {
 	padding: 100px;
 }
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-top: 1em;
+    margin-bottom: 1 em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 40px;
+}
+
+.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      | width: 70%;
+      | margin: 60%;
+  | }
