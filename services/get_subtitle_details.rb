@@ -22,7 +22,7 @@ class GetSubtitleDetails
     # plain = Base64.strict_decode64(enc)
 
     enc = file_data['data']['file']['data']['document']
-    puts enc
+
     plain = Base64.strict_decode64(enc)
 
     # path = "./temp_downloaded/#{filename}"

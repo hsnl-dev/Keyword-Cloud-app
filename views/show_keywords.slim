@@ -2,7 +2,7 @@ h2
   == "#{@keyword["data"]}"
 
 .panel.panel-primary
-  .panel-heading 章節列表
+  .panel-heading 製作完成的章節
   .panel-body
     table.table.table-striped.table-hover
       thead
@@ -12,51 +12,46 @@ h2
           th
           th
       tbody
-        - @ordered_folder.each do |chapter|
-          tr
-            td
-              == chapter[:chapter_order]
-            td
-              == "#{chapter[:name]}"
-            td
-                a#make.btn.btn-danger href="/keyword/#{@current_uid}/#{@course_id}/chapter/#{chapter[:chapter_id]}/makekeyword" role="button" onclick="make()"製作關鍵字雲
-            td
-                button#button-create-concepts.btn.btn-success data-target="#myModal" data-toggle="modal" type='submit' onclick="showkeywords()"
-                  i.fa.fa-plus aria-hidden="true"  顯示關鍵字雲
+        - @keyword_chid["content"].each_with_index.map do |chid, index|
+          - @ordered_folder.each do |chapter|
+            - if chapter[:chapter_id] == chid['chapter_id']
+              tr
+                td
+                  == chapter[:chapter_order]
+                td
+                  == "#{chapter[:name]}"
+                td
+                  button.btn.btn-success data-target="##{index}" data-toggle="modal"  data-backdrop="static" data-keyboard="false" type='submit' onclick="showkeywords(#{index}, #{chid['keyword']}, #{chid['chapter_id']})"
+                    i.fa.fa-plus aria-hidden="true"  顯示文字雲
 
-
--if @keyword["content"]
-  #myModal.modal.fade role="dialog"
-    .modal-dialog.modal-lg
-      .modal-content
-        .modal-header
-          button.close data-dismiss="modal" type="button"  &times;
-          h4.modal-title 顯示關鍵字雲
-        .modal-body style="width:800;height:400px;"
-          #tag_vis style="float:left;"
-          #tag_checkbox style="width:200px;height:300px;overflow:scroll;"
-        .modal-footer style="height:65px;"
-          / button#show.btn.btn-default type="button"  Show
-          button#close.btn.btn-default data-dismiss="modal" type="button"  Close
+          div id="#{index}" class="modal fade" role="dialog"
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  button.close data-dismiss="modal" type="button" onclick="remove()"  &times;
+                  h4 顯示文字雲
+                .modal-body style="width:800;height:400px;"
+                  div id="tag_#{chid['chapter_id']}" style="float:left;"
+                  div id="tag_checkbox#{chid['chapter_id']}" style="width:200px;height:300px;overflow:scroll;"
+                .modal-footer style="height:65px;"
+                  button#close.btn.btn-default data-dismiss="modal" type="button"  onclick="remove()" Close
 
           javascript:
             var fill = d3.scale.category20();
             var count = 0;
-            var text = "#{@keyword["content"][0]["attributes"]["keyword"].split("\n")[0]}";
-            text = text.replace(/&#39;/g, '"')
-            var post_url = "/keyword/#{@current_uid}/#{@course_id}/chapter/#{@chapter_id}/postkeyword/";
-            
-            var obj = JSON.parse(text);
+            var post_url = "";
             var keyword = [];
             var new_keyword = [];
-            
-            function make(){
-              alert("請稍待5至10分鐘")
+            var now_chid = 0;
+            function remove(){
+              d3.select("svg").remove();
+              location.reload();
+              //alert("111");
             }
-
-            function choice(my_form,count){
-                var checkboxes = document.getElementsByName('check');
+            function choice(my_form,count,post_url){
+                post_url = "/keyword/#{@current_uid}/#{@course_id}/chapter/"+now_chid+"/postkeyword/";
                 var listToDelete = [];
+                var checkboxes = document.getElementsByName('check');
                 for (var i=0, n=checkboxes.length;i<n;i++) {
                     if (checkboxes[i].checked){
                         listToDelete.push(checkboxes[i].value);
@@ -82,39 +77,42 @@ h2
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', post_url, true);
                 xhr.onload = function () {
-                    // do something to response
                     console.log(this.responseText);
                 };
                 xhr.send(JSON.stringify(listToDelete));
             }
 
-            function showkeywords(){
-               var order = [];
-               for(var objs in obj){
+            function showkeywords(index, obj, chid) {
+                now_chid = chid;
+
+                //console.log(obj)
+                var order = [];
+                keyword =[];
+                count = 0;
+                for(var objs in obj){
                   count++;
                   if(obj[objs]["order"]==null){
-                    console.log("type 1");
-                    keyword.push({'text': objs, 'size': obj[objs]*2});
-
+                    //console.log("type 1");
+                    keyword.push({'text': objs, 'size': obj[objs]-20});
                   }else{
-                    console.log("type 2");
+                    //console.log("type 2");
                     keyword.push({'text': objs, 'size': obj[objs]["order"]*50});
                   }
+                }
+                var checkboxes ="";
+                checkboxes = "<FORM NAME=\"my_form\" METHOD=POST TARGET>";
 
-               }
+                for(var i=0; i < count ; i++){
+                    checkboxes += "<input type = \"checkbox\" value  = \""+keyword[i]['text']+"\""+"NAME=\"check\""+"id = \""+i+"\">"+" "+keyword[i]['text']+"</input></br>";
+                }
+                checkboxes += "<INPUT TYPE=\"button\" VALUE=\"確認\" onClick=\"choice(this.form,count,post_url)\">";
+                document.getElementById('tag_checkbox'+now_chid).innerHTML = checkboxes;
 
-               var checkboxes = "<FORM NAME=\"my_form\" METHOD=POST TARGET>";
-
-               for(var i=0; i < count ; i++){
-                  checkboxes += "<input type = \"checkbox\" value  = \""+keyword[i]['text']+"\""+"NAME=\"check\""+"id = \""+i+"\">"+" "+keyword[i]['text']+"</input></br>";
-               }
-               checkboxes += "<INPUT TYPE=\"button\" VALUE=\"確認\" onClick=\"choice(this.form,count)\">";
-               document.getElementById('tag_checkbox').innerHTML = checkboxes;
-               addTagCloud(keyword);
-               //ocument.getElementById('show').disabled = 'true';
-
+                addTagCloud(keyword,chid);
             };
-            var addTagCloud = function (keyword) {
+
+            var addTagCloud = function (keyword,chid) {
+            //console.log("chid in addTagCloud = "+chid);
               d3.layout.cloud().size([600, 300])
                   .words(keyword)
                   .rotate(function () { return ~~(Math.random() * 2) * 90; })
@@ -125,7 +123,10 @@ h2
             };
 
             function draw(words) {
-              d3.select('#tag_vis').append('svg')
+             var tmp_chid = '#tag_'+now_chid;
+             //console.log("tmp_chid = "+tmp_chid);
+
+              d3.select(tmp_chid).append('svg')
                   .attr('width', 600)
                   .attr('height', 300)
                 .append('g')
@@ -142,3 +143,23 @@ h2
                   })
                   .text(function (d) { return d.text; });
             }
+
+
+  .panel.panel-primary
+  .panel-heading 章節列表
+  .panel-body
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th 章節順序
+          th 章節名稱
+          th
+      tbody
+        - @ordered_folder.each do |chapter|
+            tr
+              td
+                == chapter[:chapter_order]
+              td
+                == "#{chapter[:name]}"
+              td
+                  a#make.btn.btn-danger href="/keyword/#{@current_uid}/#{@course_id}/chapter/#{chapter[:chapter_id]}/makekeyword" role="button" onclick="make()" 製作文字雲
