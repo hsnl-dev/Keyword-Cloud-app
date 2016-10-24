@@ -1,102 +1,92 @@
-/! Image Background Page Header
-/! Note: The background image is set within the business-casual.css file.
-header.business-header
+header
+  .header-content
+    .header-content-inner
+      h1#homeHeading
+      hr
+      p 
+      a.btn.btn-primary.btn-xl.page-scroll href="#about"  暸解更多！
+section#about.bg-primary
   .container
     .row
-      .col-lg-12
-        h1.tagline 關鍵字雲服務平台
-.divcss5
-  / img src="/img/keyword.jpeg"
-  
-  #myCarousel.carousel.slide data-ride="carousel" 
-    /! Indicators
-    ol.carousel-indicators
-      li.active data-slide-to="0" data-target="#myCarousel" 
-      li data-slide-to="1" data-target="#myCarousel" 
-      / li data-slide-to="2" data-target="#myCarousel" 
-      / li data-slide-to="3" data-target="#myCarousel" 
-    /! Wrapper for slides
-    .carousel-inner role="listbox" 
-      .item.active
-        img alt="Chania" height="345" src="/img/keyword.jpeg" width="460" /
-        .carousel-caption
-          h3 style="color:black;" 關鍵字雲
-          p 藉由與課程相關資料，產生與課程
-      / .item
-      /   img alt="Chania" height="345" src="/img/url.png" width="460" /
-      /   .carousel-caption
-      /     h3 Chania
-      /     p The atmosphere in Chania has a touch of Florence and Venice.
-      / .itemㄋ
-      /   img alt="Flower" height="345" src="/img/source.png" width="460" /
-      /   .carousel-caption
-      /     h3 Flowers
-      /     p Beatiful flowers in Kolymbari, Crete.
-      / .item
-      /   img alt="Flower" height="345" src="/img/keyword.jpeg" width="460" /
-      /   .carousel-caption
-      /     h3 Flowers
-      /     p Beatiful flowers in Kolymbari, Crete.
-    /! Left and right controls
-    a.left.carousel-control data-slide="prev" href="#myCarousel" role="button" 
-      span.glyphicon.glyphicon-chevron-left aria-hidden="true" 
-      span.sr-only Previous
-    a.right.carousel-control data-slide="next" href="#myCarousel" role="button" 
-      span.glyphicon.gl
-
-/! Page Content
-.container
-  hr
-  .row
-    .col-sm-8
-      h2 平台相關介紹
-      ul
-       li 本平台會結合課程相關文件，如課程講義以及影片字幕，或是使用者提供的關鍵字，將會產生基本的關鍵字雲。
-       li 課程開始後，會結合學生在課程觀看影片的相關資訊，如播放視頻、拖曳時間軸的動作，運用學生觀看課程的動作，與我們一開始產生的關鍵字雲，做融合。
-       li 故關鍵字雲，每天會根據學生行為做變化。
-      p
-      .col-sm-5
-        / a#startButton.btn.btn-info.btn-lg.btn-block href="javascript:void(0);"  網站介紹
-        button#startButton.btn.btn-info.btn-lg.btn-block type="button" href="javascript:void(0);"
-          span.glyphicon.glyphicon-sunglasses aria-hidden="true" 
-          | 網站介紹
-    / .col-sm-4 data-step="1" data-intro="ShareCourse相關資訊"
-    /   h2 ShareCourse
-    /   #fb-root
-    /     javascript:
-    /       (function(d, s, id) {
-    /         var js, fjs = d.getElementsByTagName(s)[0];
-    /         if (d.getElementById(id)) return;
-    /         js = d.createElement(s); js.id = id;
-    /         js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.7&appId=197009657332993";
-    /         fjs.parentNode.insertBefore(js, fjs);
-    /       }(document, 'script', 'facebook-jssdk'));
-    /   .fb-page data-adapt-container-width="true" data-hide-cover="false" data-href="https://www.facebook.com/ShareCourse/" data-show-facepile="true" data-small-header="false"
-    /     blockquote.fb-xfbml-parse-ignore cite="https://www.facebook.com/ShareCourse/"
-    /       a href="https://www.facebook.com/ShareCourse/"  ShareCourse
-
-
-  /! /.row
-  hr
-  .row data-step="2" data-intro="相關服務介紹"
-    .col-sm-4
-      img.img-rounded.img-responsive.img-center alt="" src="/img/upload.png" /
-      h2 上傳課程文件
-      p 上傳課程的講義、影片字幕、以及關鍵字
-    .col-sm-4
-      img.img-rounded.img-responsive.img-center alt="" src="/img/cloud.png" /
-      h2 產生關鍵字雲
-      p 關鍵字雲為該單元同學常遇到的困難點，關鍵字越大, 表示越多人對此關鍵字所代表的觀念有問題(或是越重要)
-    .col-sm-4
-      img.img-rounded.img-responsive.img-center alt="" src="/img/tag.png" /
-      h2 選擇關鍵字
-      p 使用者可以挑選關鍵字，並且預覽挑選完後的關鍵字雲
-  /! /.row
-  hr
-  /! Footer
-  footer
+      .col-lg-8.col-lg-offset-2.text-center
+        h2.section-heading 何謂關鍵字雲
+        hr.light
+        p.text-faded 藉由使用者所提供的文件，如課程關鍵字、課程講義、課程字幕，由這些文件將產生與課程內容相關的關鍵字。
+        a.page-scroll.btn.btn-default.btn-xl.sr-button href="#services"  Get Started!
+section#services
+  .container
     .row
-      .col-lg-12
-        p Copyright &copy; Your Website 2016
-    /! /.row
-/! /.container
+      .col-lg-12.text-center
+        h2.section-heading 如何建置關鍵字雲
+        hr.primary
+  .container
+    .row
+      .col-lg-3.col-md-6.text-center
+        .service-box
+          i.fa.fa-4x.fa-upload.text-primary.sr-icons
+          h3 上傳課程文件
+          p.text-muted 上傳課程的講義、影片字幕、以及關鍵字
+      .col-lg-3.col-md-6.text-center
+        .service-box
+          i.fa.fa-4x.fa-cogs.text-primary.sr-icons
+          h3 製作關鍵字雲
+          p.text-muted 使用相關課程文件，經由文本分析，產生與課程相關的關鍵字雲
+      .col-lg-3.col-md-6.text-center
+        .service-box
+          i.fa.fa-4x.fa-cloud.text-primary.sr-icons
+          h3 產生關鍵字雲
+          p.text-muted 關鍵字雲為該單元同學常遇到的困難點，關鍵字越大, 表示越多人對此關鍵字所代表的觀念有問題(或是越重要)
+      .col-lg-3.col-md-6.text-center
+        .service-box
+          i.fa.fa-4x.fa-check-square.text-primary.sr-icons
+          h3 選擇關鍵字
+          p.text-muted 使用者可以挑選關鍵字，並且預覽挑選完後的關鍵字雲
+section#portfolio.no-padding
+  / .container-fluid
+  /   .row.no-gutter.popup-gallery
+  /     .col-lg-4.col-sm-6
+  /       a.portfolio-box href="img/portfolio/fullsize/1.jpg" 
+  /         img.img-responsive alt="" src="img/portfolio/thumbnails/1.jpg" /
+  /       .portfolio-box-caption
+  /         .portfolio-box-caption-content
+  /           .project-category.text-faded
+  /             | Category
+  /           .project-name
+  /             | Project Name
+  /     .col-lg-4.col-sm-6
+  /       a.portfolio-box href="img/portfolio/fullsize/2.jpg" 
+  /         img.img-responsive alt="" src="img/portfolio/thumbnails/2.jpg" /
+  /       .portfolio-box-caption
+  /         .portfolio-box-caption-content
+  /           .project-category.text-faded
+  /             | Category
+  /           .project-name
+  /             | Project Name
+  /     .col-lg-4.col-sm-6
+  /       a.portfolio-box href="img/portfolio/fullsize/3.jpg" 
+  /         img.img-responsive alt="" src="img/portfolio/thumbnails/3.jpg" /
+  /       .portfolio-box-caption
+  /         .portfolio-box-caption-content
+  /           .project-category.text-faded
+  /             | Category
+  /           .project-name
+  /             | Project Name
+
+aside.bg-dark
+  .container.text-center
+    .call-to-action
+      h2 網站說明書下載
+      a.btn.btn-default.btn-xl.sr-button href="https://goo.gl/T5DfrF" 
+        i.fa.fa-download.fa-lg.sr-contact
+          | 下載
+section#contact
+  .container
+    .row
+      .col-lg-8.col-lg-offset-2.text-center
+        h2.section-heading 聯絡我們！
+        hr.primary
+        p 假若有使用上的困難或者有遇到任何問題可以發電子郵件給我們，我們會盡快回覆
+      .col-lg-8.col-lg-offset-2.text-center
+        i.fa.fa-envelope-o.fa-3x.sr-contact
+        p
+          a href="mailto:hsnl0212@gmail.com"  feedback@keyword-cloud.com
